@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Bubble } from "./Bubble";
+import { BubbleComponent } from "./Bubble";
+import { ColorMap } from "./GameConstants";
 
-export const Board = ({ grid }: {grid: Array<Array<string>>}) => {
+export const BoardComponent = ({ grid }: {grid: Array<Array<string>>}) => {
 	const [bubbleGrid, setBubbleGrid] = useState(grid);
 
 	return (
@@ -9,7 +10,7 @@ export const Board = ({ grid }: {grid: Array<Array<string>>}) => {
 			{bubbleGrid.map((row, rowIndex) => (
 			<div key={rowIndex}>
 				{row.map((value, colIndex) => (
-				<Bubble key={`${rowIndex}-${colIndex}`} color={value}/>
+				<BubbleComponent key={`${rowIndex}-${colIndex}`} color={ColorMap.getTailwindColor(value)}/>
 				))}
 			</div>
 			))}

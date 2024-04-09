@@ -21,8 +21,10 @@ export class ColorMap {
 		return colors;
 	}
 
-	getTailwindColor(color: string): string {
+	static getTailwindColor(color: string): string {
 		switch (color) {
+			case "white":
+				return "bg-white";
 			case "red":
 				return "bg-red-500";
 			case "pink":
@@ -44,7 +46,7 @@ export class ColorMap {
 			case "brown":
 				return "bg-brown-500"; // Tailwind CSS doesn't have a brown class by default, adjust as needed
 			default:
-				return "bg-white"; // Default to an empty string for unknown colors
+				return ""; // Default to an empty string for unknown colors
 		}
 	}
 

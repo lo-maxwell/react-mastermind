@@ -9,3 +9,7 @@
 ### Write design doc
 
 ## Day 2
+
+### Create board, bubble components
+
+### Create colormap and utility functions for generating initial board layout

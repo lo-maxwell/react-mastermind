@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import {DEFAULT_ROW_SIZE, DEFAULT_NUM_COLORS, DEFAULT_NUM_GUESSES, ColorMap} from "./GameConstants";
 // import { BubbleComponent } from "./Bubble";
-import { BoardComponent } from "./Board";
+import { BoardComponent } from "./BoardComponent";
 import { Board } from "./GameUtility";
 
 
@@ -13,6 +13,6 @@ export default function Home() {
   
 
   return <div className="text-lg"> 
-    <BoardComponent grid={gameBoard.colorGrid}/>
+    <BoardComponent board={gameBoard}/>
   </div>;
 }

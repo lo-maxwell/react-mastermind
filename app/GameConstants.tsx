@@ -46,7 +46,7 @@ export class ColorMap {
 			case "brown":
 				return "bg-brown-500"; // Tailwind CSS doesn't have a brown class by default, adjust as needed
 			default:
-				return ""; // Default to an empty string for unknown colors
+				return color; // Default to same string
 		}
 	}
 

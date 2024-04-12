@@ -4,22 +4,29 @@ import React, { useEffect, useState } from "react";
 import {DEFAULT_ROW_SIZE, DEFAULT_NUM_COLORS, DEFAULT_NUM_GUESSES, ColorMap} from "./GameConstants";
 import { Board, BoardComponent } from "./Board";
 import { ColorPalette, ColorPaletteComponent } from "./ColorPalette";
-import Game from "./Game";
+import { ColorSelectorComponent, Game } from "./Game";
+import { SelectedColorContext } from "./SelectedColorContext";
+
+const game = new Game();
+const gameBoard = new Board(DEFAULT_NUM_GUESSES, DEFAULT_ROW_SIZE, DEFAULT_NUM_COLORS, game, []);
+const colorPalette = new ColorPalette(DEFAULT_NUM_COLORS, game);
+game.setupGame(gameBoard, colorPalette);
 
 export default function Home() {
-  const game = new Game();
-  const gameBoard = new Board(DEFAULT_NUM_GUESSES, DEFAULT_ROW_SIZE, DEFAULT_NUM_COLORS, game, []);
-  const colorPalette = new ColorPalette(DEFAULT_NUM_COLORS, game);
-  game.setupGame(gameBoard, colorPalette);
-
+  const [selectedColor, setSelectedColor] = useState("white");
+  const value = { selectedColor: selectedColor, setSelectedColor: setSelectedColor };
   return (
-  <>
-    <div className="text-lg">
-      <BoardComponent board={gameBoard} />
-    </div>
-    <div>
-      <ColorPaletteComponent colorPalette={colorPalette} />
-    </div>
-  </>
+    <SelectedColorContext.Provider value={value}>
+      <div className="text-lg">
+        <BoardComponent board={gameBoard}/>
+      </div>
+      <div>
+        <ColorPaletteComponent colorPalette={colorPalette}/>
+      </div>
+      <div>
+        <p>Current color: </p>
+        <ColorSelectorComponent/>
+      </div>
+    </SelectedColorContext.Provider>
   );
 }

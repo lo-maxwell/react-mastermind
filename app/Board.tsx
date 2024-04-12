@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BubbleComponent } from "./Bubble";
-import Game from "./Game";
+import { Game } from "./Game";
 import { ColorMap } from "./GameConstants";
 // import { Board } from "./GameUtility";
 
@@ -20,17 +20,9 @@ export class Board {
 		// const testTailwindColors = testColors.map((value, index) => ColorMap.getTailwindColor(value));
 		const generateRow = (width: number) => ():  Array<string> => Array.from({length: width}, (v, i) => "white");
 		const gameBoardGrid = new Array(rows).fill(0).map(generateRow(cols));
-		gameBoardGrid[0][0] = "red";
-		gameBoardGrid[0][1] = "orange";
-		gameBoardGrid[0][2] = "pink";
-		gameBoardGrid[0][3] = "light green";
 		this.colorGrid = gameBoardGrid;
 		// Create grid of same dimensions but entirely false
 		this.lockedGrid = this.generateBooleanGrid(gameBoardGrid, false);
-		this.lockedGrid[0][0] = true;
-		this.lockedGrid[0][1] = true;
-		this.lockedGrid[0][2] = true;
-		this.lockedGrid[0][3] = true;
 		this.game = game;
 		this.game.selectedColor = "white";
 		if (overrideAnswerColors.length > 0) {
@@ -60,6 +52,7 @@ export class Board {
 		// if bubble is locked
 		if (this.lockedGrid[row][col]) {
 			this.game.selectedColor = this.colorGrid[row][col];
+			console.log("Changed selected color in clickbubble");
 			return this.game.selectedColor;
 		} else {
 			this.colorGrid[row][col] = this.game.selectedColor;

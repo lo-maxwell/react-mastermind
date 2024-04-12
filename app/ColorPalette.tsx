@@ -1,6 +1,6 @@
 import { Board } from "./Board";
 import { BubbleComponent } from "./Bubble";
-import Game from "./Game";
+import { Game } from "./Game";
 
 export class ColorPalette extends Board{
 	

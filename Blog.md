@@ -13,3 +13,20 @@
 ### Create board, bubble components
 
 ### Create colormap and utility functions for generating initial board layout
+
+## Day 3
+
+### Create color palette (row of locked bubbles of each color)
+
+### Allow color changes on bubbles
+
+  * Set a "selected color" by clicking on colored bubbles
+  * Click an unlocked bubble to change it to the selected color
+  * Display the currently selected color
+
+
+## TODO
+
+### Win condition check
+
+### Display hints/solution - answer key

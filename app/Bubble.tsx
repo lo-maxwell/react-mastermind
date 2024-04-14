@@ -1,16 +1,23 @@
 import { Component, useContext, useEffect, useState } from "react";
+import { AnswerKeyBubblesContext } from "./AnswerKey";
+import { Board } from "./Board";
 import { ColorMap } from "./GameConstants";
 import { SelectedColorContext } from "./SelectedColorContext";
 
-export const BubbleComponent = ({ color, row, col, onBubbleClick}: { color: string , row: number, col: number, onBubbleClick: (r: number, c: number) => any}) => {
+export const BubbleComponent = ({ color, row, col, board, onBubbleClick}: { color: string , row: number, col: number, board: Board, onBubbleClick: (r: number, c: number) => any}) => {
 
 	const [bubbleColor, setBubbleColor] = useState(color);
 	const {selectedColor, setSelectedColor} = useContext(SelectedColorContext);
+	const {answerKeyBubbles, setAnswerKeyBubbles} = useContext(AnswerKeyBubblesContext);
 
 	const onBubbleComponentClick = () => {
-		const newColor = onBubbleClick(row, col);
-		setBubbleColor(newColor);
-		setSelectedColor(newColor);
+		const [newBubbleColor, selectedColor] = onBubbleClick(row, col);
+		setBubbleColor(newBubbleColor);
+		setSelectedColor(selectedColor);
+		console.log("Set color to: ", newBubbleColor);
+		// const newAnswerKeyBubbles = board.getAnswerGridBubbles();
+
+		setAnswerKeyBubbles(board.getAnswerGridBubbles());
 	};
 
 	return (

@@ -21,7 +21,7 @@ export default function Home() {
         <BoardComponent board={gameBoard}/>
       </div>
       <div>
-        <ColorPaletteComponent colorPalette={colorPalette}/>
+        <ColorPaletteComponent colorPalette={colorPalette} board={gameBoard}/>
       </div>
       <div>
         <p>Current color: </p>

@@ -7,8 +7,8 @@ import { SelectedColorContext } from "./SelectedColorContext";
 
 export class Game {
 	selectedColor: string;
-	board: Board | undefined;
-	colorPalette: ColorPalette | undefined;
+	board!: Board;
+	colorPalette!: ColorPalette;
 
 	constructor() {
 		this.selectedColor = "white";

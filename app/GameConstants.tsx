@@ -25,6 +25,10 @@ export class ColorMap {
 		switch (color) {
 			case "white":
 				return "bg-white";
+			case "black":
+				return "bg-black";
+			case "gray":
+				return "bg-gray-300";
 			case "red":
 				return "bg-red-500";
 			case "pink":

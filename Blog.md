@@ -24,9 +24,15 @@
   * Click an unlocked bubble to change it to the selected color
   * Display the currently selected color
 
+## Day 4
+
+### Check winner (displays console message)
+
+### Display hints whenever bubbles change color
+
 
 ## TODO
 
-### Win condition check
+### Add submit guess button (and move active row)
 
-### Display hints/solution - answer key
+### Make website prettier

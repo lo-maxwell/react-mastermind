@@ -1,4 +1,4 @@
-import { AnswerKey } from "./AnswerKey";
+import { HintKey } from "./HintKey";
 import { Game } from "./Game";
 import { ColorMap } from "./GameConstants";
 

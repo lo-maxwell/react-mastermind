@@ -3,10 +3,10 @@ import { Board } from "./Board";
 import { ColorMap } from "./GameConstants";
 
 //Don't need to have information of the other answerkeys, so we can have each row have a unique answerkey
-export class AnswerKey {
+export class HintKey {
 	bubbles: Array<string>;
 	constructor(size: number) {
-		this.bubbles = AnswerKey.generateGrayBubbles(size);
+		this.bubbles = HintKey.generateGrayBubbles(size);
 	}
 
 	static generateGrayBubbles(size: number) {
@@ -18,28 +18,28 @@ export class AnswerKey {
 	}
 }
 
-//Context to allow instant updating of components. Couldn't figure out a way to pass just one row.
-export const AnswerKeyBubblesContext = createContext({
-	answerKeyBubbles: [[""]],
-	setAnswerKeyBubbles: (s: Array<Array<string>>) => {}
+//Context to allow instant rerendering of components. Couldn't figure out a way to pass just one row.
+export const HintKeyBubblesContext = createContext({
+	hintKeyBubbles: [[""]],
+	setHintKeyBubbles: (s: Array<Array<string>>) => {}
 });
 
-export const AnswerKeyComponent = ({row, board}: {row: number, board: Board}) => {
-	const {answerKeyBubbles, setAnswerKeyBubbles} = useContext(AnswerKeyBubblesContext);
+export const HintKeyComponent = ({row, board}: {row: number, board: Board}) => {
+	const {hintKeyBubbles, setHintKeyBubbles: setHintKeyBubbles} = useContext(HintKeyBubblesContext);
 
 	const handleSubmit = () => {
 		if (board.activeRow == row) {
 			console.log("Clicked!");
-			setAnswerKeyBubbles(board.getAnswerGridBubbles());
+			setHintKeyBubbles(board.getHintGridBubbles());
 			board.lockRow(board.activeRow);
 			board.setActiveRow(board.activeRow + 1);
 		}
 	};
 
 	const isEven = board.numCols % 2 == 0;
-	const answerBubbles = answerKeyBubbles[row];
-	const group1 = answerBubbles.slice(0, Math.ceil(answerBubbles.length / 2));
-	const group2 = answerKeyBubbles[row].slice(Math.ceil(answerBubbles.length / 2));
+	const hintBubbles = hintKeyBubbles[row];
+	const group1 = hintBubbles.slice(0, Math.ceil(hintBubbles.length / 2));
+	const group2 = hintKeyBubbles[row].slice(Math.ceil(hintBubbles.length / 2));
 
 	return (
 		<div className={`flex flex-wrap flex-row`}>
@@ -47,7 +47,7 @@ export const AnswerKeyComponent = ({row, board}: {row: number, board: Board}) =>
 				{group1.map((value, index) => (
 					<button
 					onClick={handleSubmit}
-					key={`${index}-answerBubble`}
+					key={`${index}-hintBubble`}
 					className={`${ColorMap.getTailwindColor(value)} w-[30px] h-[30px] text-black font-bold ml-1 py-1 px-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border border-gray-300`}
 					>
 					</button>
@@ -57,7 +57,7 @@ export const AnswerKeyComponent = ({row, board}: {row: number, board: Board}) =>
 			{group2.map((value, index) => (
 				<button
 				onClick={handleSubmit}
-				key={`${index}-answerBubble`}
+				key={`${index}-hintBubble`}
 				className={`${ColorMap.getTailwindColor(value)} w-[30px] h-[30px] text-black font-bold ml-1 py-1 px-1 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border border-gray-300`}
 				>
 				</button>

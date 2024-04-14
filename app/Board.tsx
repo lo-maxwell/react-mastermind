@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AnswerKey, AnswerKeyBubblesContext, AnswerKeyComponent } from "./AnswerKey";
+import { HintKey, HintKeyBubblesContext, HintKeyComponent } from "./HintKey";
 import { BubbleComponent } from "./Bubble";
 import { BubbleGrid } from "./BubbleGrid";
 import { Game } from "./Game";
@@ -10,7 +10,7 @@ export class Board extends BubbleGrid{
 	lockedGrid: Array<Array<boolean>>;
 	answerColors: Array<string>;
 	activeRow: number;
-	answerGrid: Array<AnswerKey>;
+	hintGrid: Array<HintKey>;
 
 	constructor(rows: number, cols: number, numColors: number, game: Game, overrideAnswerColors: Array<string>) {
 		super(rows, cols, numColors, game);
@@ -25,7 +25,7 @@ export class Board extends BubbleGrid{
 			this.answerColors = this.colorMap.getXRandomColors(cols);
 		}
 		console.log("Answer: ", this.answerColors);
-		this.answerGrid = new Array(rows).fill(0).map(() => new AnswerKey(cols));
+		this.hintGrid = new Array(rows).fill(0).map(() => new HintKey(cols));
 	}
 
 	
@@ -42,7 +42,7 @@ export class Board extends BubbleGrid{
 			//We can only modify the active row
 			this.colorGrid[row][col] = this.game.selectedColor;
 			this.checkWinCondition();
-			this.answerGrid[row].setBubbles(this.getAnswerKeyBubbles(row));
+			this.hintGrid[row].setBubbles(this.getHintKeyBubbles(row));
 			return [this.colorGrid[row][col], this.game.selectedColor];
 		} else {
 			//Otherwise just return the same color we were given, probably white
@@ -51,9 +51,9 @@ export class Board extends BubbleGrid{
 		}
 	}
 
-	getAnswerKeyBubbles(row: number) {
+	getHintKeyBubbles(row: number) {
 		const currentRow = this.colorGrid[row].slice();
-		const answerKeyBubbles = AnswerKey.generateGrayBubbles(this.numCols);
+		const hintKeyBubbles = HintKey.generateGrayBubbles(this.numCols);
 		const answerCopy = this.answerColors.slice();
 
 		let index = 0;
@@ -61,7 +61,7 @@ export class Board extends BubbleGrid{
 			if (answerCopy[i] == currentRow[i]) {
 				answerCopy[i] = "answer used";
 				currentRow[i] = "color used";
-				answerKeyBubbles[index] = "black"
+				hintKeyBubbles[index] = "black"
 				index++;
 			}
 		}
@@ -69,12 +69,12 @@ export class Board extends BubbleGrid{
 			if (answerCopy.includes(currentRow[i])) {
 				answerCopy[answerCopy.indexOf(currentRow[i])] = "answer used";
 				currentRow[i] = "color used";
-				answerKeyBubbles[index] = "white"
+				hintKeyBubbles[index] = "white"
 				index++;
 			}
 		}
 		
-		return answerKeyBubbles;
+		return hintKeyBubbles;
 
 	}
 
@@ -91,8 +91,8 @@ export class Board extends BubbleGrid{
 		return this.lockedGrid[row][col];
 	}
 
-	getAnswerGridBubbles() {
-		const bubbleGrid = new Array(this.answerGrid.length).fill(0).map((row, rowIndex) => this.answerGrid[rowIndex].bubbles);
+	getHintGridBubbles() {
+		const bubbleGrid = new Array(this.hintGrid.length).fill(0).map((row, rowIndex) => this.hintGrid[rowIndex].bubbles);
 		return bubbleGrid;
 	}
 
@@ -109,20 +109,20 @@ export class Board extends BubbleGrid{
 }
 
 export const BoardComponent = ({ board }: {board: Board}) => {
-	const [answerKeyGrid, setAnswerKeyGrid] = useState(board.getAnswerGridBubbles());
-	const value = {answerKeyBubbles: answerKeyGrid, setAnswerKeyBubbles: setAnswerKeyGrid};
+	const [hintKeyGrid, setHintKeyGrid] = useState(board.getHintGridBubbles());
+	const value = {hintKeyBubbles: hintKeyGrid, setHintKeyBubbles: setHintKeyGrid};
 	return (
 		<div>
-			<AnswerKeyBubblesContext.Provider value={value}>
+			<HintKeyBubblesContext.Provider value={value}>
 				{board.colorGrid.map((row, rowIndex) => (
 					<div key={rowIndex} className={`flex ${rowIndex == board.activeRow ? `bg-gray-100` : ``}`}>
 						{row.map((value, colIndex) => (
 						<BubbleComponent key={`${rowIndex}-${colIndex}`} color={value} row={rowIndex} col={colIndex} board={board} onBubbleClick={(row, col) => board.clickBubble(row, col)}/>
 						))}
-						<AnswerKeyComponent key={`${rowIndex}-answers`} row={rowIndex} board={board}/>
+						<HintKeyComponent key={`${rowIndex}-answers`} row={rowIndex} board={board}/>
 					</div>
 				))}
-			</AnswerKeyBubblesContext.Provider>
+			</HintKeyBubblesContext.Provider>
 		</div>
 		);
 }

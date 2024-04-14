@@ -1,5 +1,5 @@
 import { Component, useContext, useEffect, useState } from "react";
-import { AnswerKeyBubblesContext } from "./AnswerKey";
+import { HintKeyBubblesContext } from "./HintKey";
 import { Board } from "./Board";
 import { ColorMap } from "./GameConstants";
 import { SelectedColorContext } from "./SelectedColorContext";
@@ -8,7 +8,7 @@ export const BubbleComponent = ({ color, row, col, board, onBubbleClick}: { colo
 
 	const [bubbleColor, setBubbleColor] = useState(color);
 	const {selectedColor, setSelectedColor} = useContext(SelectedColorContext);
-	const {answerKeyBubbles, setAnswerKeyBubbles} = useContext(AnswerKeyBubblesContext);
+	const {hintKeyBubbles: hintKeyBubbles, setHintKeyBubbles: setHintKeyBubbles} = useContext(HintKeyBubblesContext);
 
 	const onBubbleComponentClick = () => {
 		const [newBubbleColor, selectedColor] = onBubbleClick(row, col);

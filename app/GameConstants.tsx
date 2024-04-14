@@ -1,5 +1,5 @@
-export const DEFAULT_ROW_SIZE = 4;
-export const DEFAULT_NUM_COLORS = 6;
+export const DEFAULT_ROW_SIZE = 6;
+export const DEFAULT_NUM_COLORS = 8;
 export const DEFAULT_NUM_GUESSES = 8;
 
 // Helper data structure that maps color names to their actual colors

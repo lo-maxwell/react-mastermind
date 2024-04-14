@@ -20,9 +20,7 @@ export class BubbleGrid {
 	}
 
 	updateVisibleBubble(row: number, col: number, newColor: string) {
-		console.log("test");
 		this.colorGrid[row][col] = newColor;
-		console.log(this.colorGrid);
 	}
 
 	setSelectedBubble(row: number, col: number) {

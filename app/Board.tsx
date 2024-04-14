@@ -81,6 +81,7 @@ export class Board extends BubbleGrid{
 	checkWinCondition() {
 		if (Utility.arraysEqual(this.colorGrid[this.activeRow], this.answerColors)) {
 			console.log("You win!");
+			this.lockedGrid = this.generateBooleanGrid(this.colorGrid, true);
 			return true;
 		}
 		return false;
@@ -95,6 +96,16 @@ export class Board extends BubbleGrid{
 		return bubbleGrid;
 	}
 
+	setActiveRow(newActiveRow: number) {
+		this.activeRow = newActiveRow;
+	}
+
+	lockRow(row: number) {
+		for (let i = 0; i < this.numCols; i++) {
+			this.lockedGrid[row][i] = true;
+		}
+	}
+
 }
 
 export const BoardComponent = ({ board }: {board: Board}) => {
@@ -104,11 +115,11 @@ export const BoardComponent = ({ board }: {board: Board}) => {
 		<div>
 			<AnswerKeyBubblesContext.Provider value={value}>
 				{board.colorGrid.map((row, rowIndex) => (
-					<div key={rowIndex} className={`flex`}>
+					<div key={rowIndex} className={`flex ${rowIndex == board.activeRow ? `bg-gray-100` : ``}`}>
 						{row.map((value, colIndex) => (
 						<BubbleComponent key={`${rowIndex}-${colIndex}`} color={value} row={rowIndex} col={colIndex} board={board} onBubbleClick={(row, col) => board.clickBubble(row, col)}/>
 						))}
-						<AnswerKeyComponent key={`${rowIndex}-answers`} row={rowIndex}/>
+						<AnswerKeyComponent key={`${rowIndex}-answers`} row={rowIndex} board={board}/>
 					</div>
 				))}
 			</AnswerKeyBubblesContext.Provider>

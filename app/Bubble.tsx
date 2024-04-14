@@ -14,18 +14,14 @@ export const BubbleComponent = ({ color, row, col, board, onBubbleClick}: { colo
 		const [newBubbleColor, selectedColor] = onBubbleClick(row, col);
 		setBubbleColor(newBubbleColor);
 		setSelectedColor(selectedColor);
-		console.log("Set color to: ", newBubbleColor);
-		// const newAnswerKeyBubbles = board.getAnswerGridBubbles();
-
-		setAnswerKeyBubbles(board.getAnswerGridBubbles());
 	};
 
 	return (
 		<button
 			onClick={onBubbleComponentClick}
-			className={`${ColorMap.getTailwindColor(bubbleColor)} text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border border-gray-300`}
+			className={`${ColorMap.getTailwindColor(bubbleColor)} min-w-[64px] min-h-[64px] text-black font-bold ml-1 my-1 px-4 py-4 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border border-gray-300`}
 		>
-			{bubbleColor}
+			
 		</button>
 	);
 };

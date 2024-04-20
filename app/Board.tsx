@@ -41,7 +41,8 @@ export class Board extends BubbleGrid{
 		} else if (this.activeRow == row) {
 			//We can only modify the active row
 			this.colorGrid[row][col] = this.game.selectedColor;
-			this.checkWinCondition();
+		
+			// this.checkWinCondition();
 			this.hintGrid[row].setBubbles(this.getHintKeyBubbles(row));
 			return [this.colorGrid[row][col], this.game.selectedColor];
 		} else {
@@ -81,10 +82,13 @@ export class Board extends BubbleGrid{
 	checkWinCondition() {
 		if (Utility.arraysEqual(this.colorGrid[this.activeRow], this.answerColors)) {
 			console.log("You win!");
-			this.lockedGrid = this.generateBooleanGrid(this.colorGrid, true);
-			return true;
+		} else if (this.activeRow >= this.numRows - 1) {
+			console.log("You lose!");
+		} else {
+			return false;
 		}
-		return false;
+		this.lockedGrid = this.generateBooleanGrid(this.colorGrid, true);
+		return true;
 	}
 
 	getBubbleIsLocked(row: number, col: number) {

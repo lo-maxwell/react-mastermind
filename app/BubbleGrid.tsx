@@ -4,6 +4,7 @@ import { ColorMap } from "./GameConstants";
 
 
 export class BubbleGrid {
+	numRows: number;
 	numCols: number;
 	colorMap: ColorMap;
 	colorGrid: Array<Array<string>>;
@@ -12,6 +13,7 @@ export class BubbleGrid {
 	constructor(rows: number, cols: number, numColors: number, game: Game) {
 		const gameColorMap = new ColorMap(numColors);
 		this.colorMap = gameColorMap;
+		this.numRows = rows;
 		this.numCols = cols;
 		const generateRow = (width: number) => ():  Array<string> => Array.from({length: width}, (v, i) => "white");
 		const gameBoardGrid = new Array(rows).fill(0).map(generateRow(cols));

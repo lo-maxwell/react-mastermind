@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { AnswerKeyContext } from "./AnswerKey";
 import { Board } from "./Board";
 import { ColorMap } from "./GameConstants";
 
@@ -26,13 +27,21 @@ export const HintKeyBubblesContext = createContext({
 
 export const HintKeyComponent = ({row, board}: {row: number, board: Board}) => {
 	const {hintKeyBubbles, setHintKeyBubbles: setHintKeyBubbles} = useContext(HintKeyBubblesContext);
-
+	const {showAnswerKey, setShowAnswerKey} = useContext(AnswerKeyContext);
 	const handleSubmit = () => {
 		if (board.activeRow == row) {
 			console.log("Clicked!");
 			setHintKeyBubbles(board.getHintGridBubbles());
 			board.lockRow(board.activeRow);
-			board.setActiveRow(board.activeRow + 1);
+			
+			if (board.checkWinCondition()) {
+				//Show answer and disable gameplay
+				setShowAnswerKey(true);
+				board.setActiveRow(-1);
+			} else {
+				//Move active row down
+				board.setActiveRow(board.activeRow + 1);
+			}
 		}
 	};
 

@@ -43,3 +43,5 @@
 ### Active row is highlighted and guesses can be submitted
 
 ### Various UI changes for prettiness jk its still ugly
+
+### Deployed with vercel

@@ -1,10 +1,10 @@
-export const DEFAULT_ROW_SIZE = 6;
-export const DEFAULT_NUM_COLORS = 8;
+export const DEFAULT_ROW_SIZE = 4;
+export const DEFAULT_NUM_COLORS = 6;
 export const DEFAULT_NUM_GUESSES = 8;
 
 // Helper data structure that maps color names to their actual colors
 export class ColorMap {
-	static readonly allColors: string[] = ["red", "pink", "orange", "yellow", "light green", "dark green", "light blue", "dark blue", "violet", "brown"];
+	static readonly allColors: string[] = ["red", "pink", "orange", "yellow", "light green", "dark green", "light blue", "dark blue", "light purple", "dark purple"];
 	usedColors: string[];
 
 	constructor(numColors: number) {
@@ -45,10 +45,10 @@ export class ColorMap {
 				return "bg-blue-300"; // Adjust as needed
 			case "dark blue":
 				return "bg-blue-700"; // Adjust as needed
-			case "violet":
-				return "bg-purple-500";
-			case "brown":
-				return "bg-brown-500"; // Tailwind CSS doesn't have a brown class by default, adjust as needed
+			case "light purple":
+				return "bg-purple-300";
+			case "dark purple":
+				return "bg-purple-700"; // Tailwind CSS doesn't have a brown class by default, adjust as needed
 			default:
 				return color; // Default to same string
 		}

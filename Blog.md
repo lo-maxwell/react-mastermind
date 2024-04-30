@@ -30,9 +30,16 @@
 
 ### Display hints whenever bubbles change color
 
+## Day ??
 
-## TODO
+### Finished project
 
-### Add submit guess button (and move active row)
+### Added config form to update the game parameters
 
-### Make website prettier
+### Added restart game button
+
+### Added solution at the end of the game (ran out of guesses or guessed correctly)
+
+### Active row is highlighted and guesses can be submitted
+
+### Various UI changes for prettiness jk its still ugly

@@ -110,6 +110,11 @@ export class Board extends BubbleGrid{
 		}
 	}
 
+	notContainsWhiteBubbles(row: number) {
+		const currentRow = this.colorGrid[row].slice();
+		return !currentRow.includes("white");
+	}
+
 }
 
 export const BoardComponent = ({ board }: {board: Board}) => {
@@ -121,7 +126,7 @@ export const BoardComponent = ({ board }: {board: Board}) => {
 				{board.colorGrid.map((row, rowIndex) => (
 					<div key={rowIndex} className={`flex ${rowIndex == board.activeRow ? `bg-gray-100` : ``}`}>
 						{row.map((value, colIndex) => (
-						<BubbleComponent key={`${rowIndex}-${colIndex}`} color={value} row={rowIndex} col={colIndex} board={board} onBubbleClick={(row, col) => board.clickBubble(row, col)}/>
+						<BubbleComponent key={`${rowIndex}-${colIndex}`} color={value} row={rowIndex} col={colIndex} board={board} onBubbleClick={(row, col) => board.clickBubble(row, col)} borderColor={``}/>
 						))}
 						<HintKeyComponent key={`${rowIndex}-answers`} row={rowIndex} board={board}/>
 					</div>

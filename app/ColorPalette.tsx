@@ -28,7 +28,9 @@ export const ColorPaletteComponent = ({colorPalette, board}: {colorPalette: Colo
 	return (
 		<div>
 			{colorPalette.colorGrid[0].map((value, index) => (
-				<BubbleComponent key={`${index}`} color={value} row={0} col={index} board={board} onBubbleClick={(row, col) => colorPalette.clickBubble(row, col)}/>
+				<div key={`div-${index}`}>
+				<BubbleComponent key={`${index}`} color={value} row={0} col={index} board={board} onBubbleClick={(row, col) => colorPalette.clickBubble(row, col)} borderColor={`border-black`}/>
+				</div>
 			))}
 		</div>
 		);

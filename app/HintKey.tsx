@@ -29,7 +29,7 @@ export const HintKeyComponent = ({row, board}: {row: number, board: Board}) => {
 	const {hintKeyBubbles, setHintKeyBubbles: setHintKeyBubbles} = useContext(HintKeyBubblesContext);
 	const {showAnswerKey, setShowAnswerKey} = useContext(AnswerKeyContext);
 	const handleSubmit = () => {
-		if (board.activeRow == row) {
+		if (board.activeRow == row && board.notContainsWhiteBubbles(row)) {
 			console.log("Clicked!");
 			setHintKeyBubbles(board.getHintGridBubbles());
 			board.lockRow(board.activeRow);

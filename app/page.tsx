@@ -105,7 +105,7 @@ export default function Home() {
 
   return (<>
   <div className="fixed px-4 inset-0 mx-auto space-y-2 shadow-lg bg-gray-400 h-screen overflow-x-auto overflow-y-auto">
-      <div className="text-center space-y-0.5 px-8 pb-4 bg-gray-100 text-black ">
+      <div className="text-center space-y-0.5 px-8 pb-4 bg-gray-400 text-black ">
         <div className="flex">
           <span className="flex-1 mr-auto invisible"> . </span>
           <span className="flex-1 text-2xl font-bold justify-center">Mastermind!</span>
@@ -136,7 +136,7 @@ export default function Home() {
         <div className="text-lg">
           <BoardComponent board={gameBoard}/>
         </div>
-        <hr className="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700"/>
+        <hr className="h-px my-2 bg-gray-200 border-2 border-black dark:bg-gray-700"/>
         <div className="flex justify-left">
           <AnswerKeyComponent bubbles={gameBoard.answerColors}/>
         </div>

@@ -28,7 +28,7 @@ export class ColorMap {
 			case "black":
 				return "bg-black";
 			case "gray":
-				return "bg-gray-300";
+				return "bg-gray-400";
 			case "red":
 				return "bg-red-500";
 			case "pink":

@@ -9,6 +9,7 @@ import { SelectedColorContext } from "./SelectedColorContext";
 import { AnswerKeyContext, AnswerKeyComponent } from "./AnswerKey";
 import { Config } from "./Config";
 import { InstructionPage } from "./InstructionPage";
+import TimerComponent from "./TimerComponent";
 
 // const game = new Game();
 // game.generateGame(DEFAULT_NUM_GUESSES, DEFAULT_ROW_SIZE, DEFAULT_NUM_COLORS, []);
@@ -30,11 +31,21 @@ export default function Home() {
   const selectedColorContext = { selectedColor: selectedColor, setSelectedColor: setSelectedColor };
   const [showAnswerKey, setShowAnswerKey] = useState(false);
   const showAnswerKeyContext = {showAnswerKey: showAnswerKey, setShowAnswerKey: setShowAnswerKey};
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
   // We use this to force the rerender of all child components when we restart the game. 
   // Note that this is an expensive hack which is usable for this small program, 
   // but should not be used in large models.
   const [forceRerenderKey, setForceRerenderKey] = useState(1);
   
+  useEffect(() => {
+    restartGame();
+  }, []);
+
+  useEffect(() => {
+    if (showAnswerKey) stopTimer();
+  }, [showAnswerKey]);
+
   const restartGame = () => {
     const newGame = createGame(parseInt(formData.rows), parseInt(formData.cols), parseInt(formData.colors), []);
     setGame(newGame);
@@ -43,6 +54,8 @@ export default function Home() {
     setSelectedColor("white");
     setShowAnswerKey(false);
     setForceRerenderKey(forceRerenderKey => forceRerenderKey + 1);
+    setElapsedTime(0);
+    startTimer();
   }
 
   //Config Form stuff -- can I move this to an external file somehow? Maybe a context?
@@ -103,31 +116,43 @@ export default function Home() {
     setShowInstructions(true);
   }
 
+  //Timer Component
+  const startTimer = () => {
+    setStartTime(Date.now());
+  };
+
+  const stopTimer = () => {
+    setStartTime(null);
+  };
+
   return (<>
-  <div className="fixed px-4 inset-0 mx-auto space-y-2 shadow-lg bg-gray-400 h-screen overflow-x-auto overflow-y-auto">
-      <div className="text-center space-y-0.5 px-8 pb-4 bg-gray-400 text-black ">
-        <div className="flex">
-          <span className="flex-1 mr-auto invisible"> . </span>
-          <span className="flex-1 text-2xl font-bold justify-center">Mastermind!</span>
-          <span className="flex flex-1 justify-end relative"><button onClick={showInstructionsPage} className="text-3xl absolute top-4 right-0">ℹ️</button></span>
-        </div>
+  <div className="fixed px-4 inset-0 mx-auto space-y-2 shadow-lg bg-blue-200 h-screen overflow-x-auto overflow-y-auto">
+      <div className="text-center space-y-0.5 px-8 pb-4 bg-blue-200 text-black ">
+        <div className="grid grid-cols-1 bg-gray-800 py-2">
+          <div className="flex text-white">
+            <div className="flex flex-1 items-center justify-start ml-4">
+                <TimerComponent startTime={startTime} setStartTime={setStartTime} elapsedTime={elapsedTime} setElapsedTime={setElapsedTime}/>
+            </div>
+            <span className="flex-1 text-2xl font-bold justify-center">Mastermind!</span>
+            <span className="flex flex-1 justify-end relative"><button onClick={showInstructionsPage} className="text-3xl absolute top-4 right-8">ℹ️</button></span>
+            </div>
+            <div className="flex justify-center flex-5 space-x-4">
+            <span className="">
+              <button className="bg-gray-300 px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2" onClick={restartGame}>
+                Restart Game
+              </button>
+            </span>
+              <span className="flex"><button onClick={showConfigForm} className="bg-gray-300 px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">Customize Board</button></span>
+            </div>
+          </div>
     <SelectedColorContext.Provider value={selectedColorContext} key={forceRerenderKey}>
       <AnswerKeyContext.Provider value={showAnswerKeyContext}>
       <span className="">
-        <span className="absolute top-4 left-8">
+        <span className="absolute top-24 left-12">
           <div>Current color: </div>
             <ColorSelectorComponent/>
         </span>
       </span>
-      <div className="flex justify-center flex-5 space-x-4">
-        
-        <span className="flex">
-          <button className="bg-blue-200 px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2" onClick={restartGame}>
-            Restart Game
-          </button>
-        </span>
-          <span className="flex"><button onClick={showConfigForm} className="bg-blue-200 px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">Customize Board</button></span>
-        </div>
       <div className="flex justify-center">
       <div className="flex mx-8">
         <ColorPaletteComponent colorPalette={colorPalette} board={gameBoard}/>

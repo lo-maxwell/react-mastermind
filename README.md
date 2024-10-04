@@ -1,22 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Mastermind ##
 
-Live deployment here: https://mastermind-bubbly.vercel.app/
+Mastermind webapp made with React, Nextjs, Tailwind CSS
 
-## Run locally
+## Deployed with vercel here: https://mastermind-bubbly.vercel.app/
 
-First, download dependencies:
-```npm install```
+Mastermind is a board game where you try to guess the code of colored pegs (or bubbles, in this case). With each guess, the controller gives a hint consisting of the number of correct colors in the wrong place, and the number of correct colors in the correct place. Figure out the code in a limited number of guesses to win!
 
-Then, run the development server:
+## Run locally with 
+``` 
+npm install
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev 
+
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
